@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JariJemari - Toko handmade products lucu & estetik. Rajutan, bordiran, clay art, dan aksesoris unik buatan tangan dengan cinta 🧶💕">
+    <meta name="keywords" content="handmade, rajutan, bordir, crochet, aksesoris, gift, hadiah, kawaii, lucu">
+    <meta name="author" content="JariJemari">
+    <title>JariJemari ✨ Handmade with Love</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧶</text></svg>">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- ═══ Toast Container ═══ -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- ═══ Navbar ═══ -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="navbar-logo">
+                <span class="logo-icon">🧶</span>
+                <span class="logo-text">jari<span>jemari</span></span>
+            </a>
+
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle menu">☰</button>
+
+            <ul class="navbar-menu" id="navbar-menu">
+                <li><a href="#home" class="active">Beranda</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#testimonials">Review</a></li>
+                <li><a href="#contact">Kontak</a></li>
+                <li>
+                    <a href="javascript:void(0)" class="navbar-cart" onclick="toggleCart()">
+                        🛒 Keranjang
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ═══ Hero Section ═══ -->
+    <section class="hero" id="home">
+        <!-- Floating decorations -->
+        <span class="floating-deco deco-1">🌸</span>
+        <span class="floating-deco deco-2">✨</span>
+        <span class="floating-deco deco-3">🎀</span>
+        <span class="floating-deco deco-4">💙</span>
+
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="emoji-float">🪡</span> 100% Handmade with Love
+                </div>
+                <h1 class="hero-title">
+                    Dari <span class="highlight">Jemari</span>,<br>
+                    Untuk <span class="highlight">Hati</span> 💕
+                </h1>
+                <p class="hero-desc">
+                    Setiap produk dirajut & dibordir dengan penuh cinta. Temukan aksesoris handmade lucu untuk dirimu atau sebagai hadiah spesial untuk orang tersayang~ ✨
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn-primary">
+                        🛍️ Jelajahi Koleksi
+                    </a>
+                    <a href="#about" class="btn-secondary">
+                        🧶 Cerita Kami
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-blob"></div>
+                    <div class="hero-products-float">
+                        <div class="hero-float-item">
+                            <img src="{{ url_for('static', filename='images/product_bunny_keychain.png') }}" alt="Bunny Keychain">
+                        </div>
+                        <div class="hero-float-item">
+                            <img src="{{ url_for('static', filename='images/product_flower_bouquet.png') }}" alt="Flower Bouquet">
+                        </div>
+                        <div class="hero-float-item">
+                            <img src="{{ url_for('static', filename='images/product_bucket_hat.png') }}" alt="Bucket Hat">
+                        </div>
+                        <div class="hero-float-item">
+                            <img src="{{ url_for('static', filename='images/product_scrunchie.png') }}" alt="Scrunchie Set">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Stats Bar ═══ -->
+    <section class="stats-bar">
+        <div class="stats-inner">
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number" id="stat-products">0</div>
+                <div class="stat-label">Produk Handmade</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number" id="stat-customers">0</div>
+                <div class="stat-label">Pelanggan Senang</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number" id="stat-handmade">0</div>
+                <div class="stat-label">% Buatan Tangan</div>
+            </div>
+            <div class="stat-item animate-on-scroll">
+                <div class="stat-number">⭐ 4.9</div>
+                <div class="stat-label">Rating Toko</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Categories Section ═══ -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Kategori Produk ✨</h2>
+            <p class="section-subtitle animate-on-scroll">Pilih kategori favorit kamu~</p>
+            <div class="categories-grid" id="categories-grid">
+                <!-- Loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Products Section ═══ -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Koleksi Handmade 🧶</h2>
+            <p class="section-subtitle animate-on-scroll">Setiap produk dibuat dengan cinta & ketelitian~</p>
+
+            <div class="products-toolbar">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" 
+                           id="search-input"
+                           placeholder="Cari produk lucu..." 
+                           oninput="handleSearch(this.value)"
+                           autocomplete="off">
+                </div>
+                <select class="sort-select" id="sort-select" onchange="handleSort(this.value)">
+                    <option value="newest">✨ Terbaru</option>
+                    <option value="price_low">💰 Harga Terendah</option>
+                    <option value="price_high">💎 Harga Tertinggi</option>
+                    <option value="name">🔤 Nama A-Z</option>
+                </select>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Featured Banner ═══ -->
+    <section class="featured-banner" id="about">
+        <div class="container">
+            <div class="banner-card animate-on-scroll">
+                <div class="banner-content">
+                    <span class="banner-tag">✨ Custom Order</span>
+                    <h2 class="banner-title">Mau Desain Custom? Bisa Banget!</h2>
+                    <p class="banner-desc">
+                        Punya ide unik untuk hadiah spesial? Kami bisa buatkan rajutan, bordiran, 
+                        atau clay art sesuai keinginanmu! Cukup hubungi kami via WhatsApp dan 
+                        ceritakan ide kamu 🎨
+                    </p>
+                    <a href="https://wa.me/6281234567890?text=Halo%20JariJemari!%20Saya%20mau%20custom%20order%20🧶" 
+                       class="btn-primary" target="_blank">
+                        💬 Chat WhatsApp
+                    </a>
+                </div>
+                <div class="banner-image">
+                    <img src="{{ url_for('static', filename='images/product_tote_bag.png') }}" alt="Custom Order JariJemari">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Features / Why Us ═══ -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Kenapa JariJemari? 💙</h2>
+            <p class="section-subtitle animate-on-scroll">Yang membuat kami berbeda~</p>
+
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon emoji-float">🧶</span>
+                    <h3 class="feature-title">100% Handmade</h3>
+                    <p class="feature-desc">Setiap produk dibuat seluruhnya dengan tangan, tanpa mesin. Penuh detail dan kasih sayang!</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon emoji-float">💝</span>
+                    <h3 class="feature-title">Cocok untuk Gift</h3>
+                    <p class="feature-desc">Packaging cantik dan bisa tambah kartu ucapan. Perfect untuk hadiah di setiap momen spesial!</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon emoji-float">🎨</span>
+                    <h3 class="feature-title">Bisa Custom</h3>
+                    <p class="feature-desc">Warna, ukuran, atau desain bisa disesuaikan dengan keinginanmu. Tinggal chat aja!</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon emoji-float">📦</span>
+                    <h3 class="feature-title">Pengiriman Aman</h3>
+                    <p class="feature-desc">Dikemas dengan bubble wrap ekstra dan box khusus supaya produkmu sampai dengan sempurna!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Testimonials Section ═══ -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Kata Mereka 💬</h2>
+            <p class="section-subtitle animate-on-scroll">Review dari pelanggan-pelanggan tersayang~</p>
+
+            <div class="testimonials-slider" id="testimonials-slider">
+                <!-- Loaded via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CTA Section ═══ -->
+    <section class="cta-section" id="contact">
+        <h2 class="cta-title">Yuk, Mulai Belanja! 🛍️</h2>
+        <p class="cta-desc">Follow Instagram kami untuk update produk terbaru dan promo spesial~</p>
+        <a href="https://wa.me/6281234567890?text=Halo%20JariJemari!%20🧶" class="btn-white" target="_blank">
+            💬 Hubungi Kami via WhatsApp
+        </a>
+    </section>
+
+    <!-- ═══ Footer ═══ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">🧶 jari<span>jemari</span></div>
+                    <p class="footer-desc">
+                        Toko handmade produk yang dibuat dengan cinta dari ujung jari. 
+                        Rajutan, bordiran, dan clay art untuk momen spesialmu~ 💕
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" title="Instagram">📸</a>
+                        <a href="#" class="social-link" title="TikTok">🎵</a>
+                        <a href="#" class="social-link" title="Shopee">🛍️</a>
+                        <a href="#" class="social-link" title="WhatsApp">💬</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Produk</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Rajutan</a></li>
+                        <li><a href="#">Bordiran</a></li>
+                        <li><a href="#">Clay & Frame</a></li>
+                        <li><a href="#">Buket & Gift</a></li>
+                        <li><a href="#">Aksesoris</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Informasi</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Cara Order</a></li>
+                        <li><a href="#">Custom Order</a></li>
+                        <li><a href="#">Pengiriman</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Kontak</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">📍 Jakarta, Indonesia</a></li>
+                        <li><a href="https://wa.me/6281234567890">📱 +62 812-3456-7890</a></li>
+                        <li><a href="#">📧 hello@jarijemari.id</a></li>
+                        <li><a href="#">🕐 09.00 - 21.00 WIB</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 JariJemari. Dibuat dengan 🧶 dan ❤️ | All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══ Product Detail Modal ═══ -->
+    <div class="modal-overlay" id="product-modal" onclick="if(event.target===this) closeProductModal()">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductModal()">✕</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modal-image" src="" alt="">
+                </div>
+                <div class="modal-details">
+                    <div class="modal-category" id="modal-category"></div>
+                    <h2 class="modal-title" id="modal-title"></h2>
+                    <div class="modal-price" id="modal-price"></div>
+                    <p class="modal-desc" id="modal-desc"></p>
+                    <div class="modal-stock">
+                        <span class="stock-dot"></span>
+                        <span id="modal-stock-text">Stok tersedia</span>
+                    </div>
+                    <div class="modal-quantity">
+                        <span style="font-weight:600; color: var(--text-medium);">Jumlah:</span>
+                        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+                        <span class="qty-value" id="modal-qty" data-product-id="" data-max="99">1</span>
+                        <button class="qty-btn" onclick="changeQty(1)">+</button>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-add-cart" onclick="addToCartFromModal()">
+                            🛒 Masukkan Keranjang
+                        </button>
+                        <a class="btn-wa" id="modal-wa-btn" href="#" target="_blank">
+                            💬
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Cart Sidebar ═══ -->
+    <div class="cart-overlay" onclick="toggleCart()"></div>
+    <aside class="cart-sidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">🛒 Keranjang</h3>
+            <button class="cart-close" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">
+                <span class="cart-empty-icon">🛒</span>
+                <p>Keranjang masih kosong nih~</p>
+                <p style="font-size: 0.85rem; margin-top: 8px;">Yuk jelajahi produk handmade kami! ✨</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-amount" id="cart-total-amount">Rp 0</span>
+            </div>
+            <button class="cart-checkout-btn" onclick="checkout()">
+                💬 Checkout via WhatsApp
+            </button>
+        </div>
+    </aside>
+
+    <!-- ═══ Main Script ═══ -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
